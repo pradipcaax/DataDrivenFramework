@@ -59,7 +59,7 @@ public class TestBase {
             driver.get(config.getProperty("testSiteUrl"));
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(Integer.parseInt(config.getProperty("impWait")), TimeUnit.SECONDS);
-
+    //here
         }
 
 
