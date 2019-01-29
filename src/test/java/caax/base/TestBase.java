@@ -1,9 +1,15 @@
 package caax.base;
 
+import caax.utilities.ExcelReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
@@ -19,6 +25,10 @@ public class TestBase {
     public static Properties config=new Properties();
     public static Properties OR=new Properties();
     public static FileInputStream fis;
+    public static Logger log= LogManager.getLogger();
+    public static ExcelReader reader=new ExcelReader(System.getProperty("user.dir")+"\\src\\main\\resources\\excel\\data.xlsx");
+    public static WebDriverWait wait;
+
 
     @BeforeSuite
     public void setUp(){
@@ -33,6 +43,7 @@ public class TestBase {
             }
             try {
                 config.load(fis);
+                log.debug("Config file loaded");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -43,6 +54,7 @@ public class TestBase {
             }
             try {
                 OR.load(fis);
+                log.debug("OR file loaded");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -51,20 +63,34 @@ public class TestBase {
             {
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver();
+                log.debug("Chroma launched");
             }else if (config.getProperty("browser").equals("firefox"))
             {
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver();
             }
             driver.get(config.getProperty("testSiteUrl"));
+            log.debug("Navigate to :"+config.getProperty("testSiteUrl"));
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(Integer.parseInt(config.getProperty("impWait")), TimeUnit.SECONDS);
-    //here
+            wait=new WebDriverWait(driver,5);
         }
 
 
 
     }
+
+    public boolean isElementPresent(By by)
+    {
+        try{
+            driver.findElement(by);
+            return true;
+
+        }catch (NoSuchElementException e){
+            return false;
+        }
+    }
+
 
     @AfterSuite
     public void tearDown(){

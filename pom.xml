@@ -100,6 +100,20 @@
             <artifactId>xml-apis</artifactId>
             <version>2.0.2</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.uncommons/reportng -->
+        <dependency>
+            <groupId>org.uncommons</groupId>
+            <artifactId>reportng</artifactId>
+            <version>1.1.4</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.inject/guice -->
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>4.2.2</version>
+        </dependency>
+
 
 
     </dependencies>
@@ -120,7 +134,7 @@
                     <version>3.0.0-M3</version>
                     <configuration>
                         <suiteXmlFiles>
-                            <suiteXmlFile>testNG.xml</suiteXmlFile>
+                            <suiteXmlFile>C:\Users\test\IdeaProjects\DataDrivenFramework\src\main\resources\runner\testNG_runner.xml</suiteXmlFile>
                         </suiteXmlFiles>
                     </configuration>
                 </plugin>
