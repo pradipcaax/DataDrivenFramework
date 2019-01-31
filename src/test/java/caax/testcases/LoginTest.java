@@ -13,13 +13,15 @@ public class LoginTest extends TestBase {
 
 
          log.debug("Inside login test");
-         driver.findElement(By.xpath(OR.getProperty("userId"))).sendKeys("pradip.caax@gmail.com");
+
+         type("userId","pradip.caax@gmail.com");
 
          Assert.assertTrue(isElementPresent(By.xpath(OR.getProperty("password"))));
 
-         driver.findElement(By.xpath(OR.getProperty("password"))).sendKeys("pradip123");
-         driver.findElement(By.xpath(OR.getProperty("login_btn"))).click();
+         type("password","pradip123");
+         click("login_btn");
          log.debug("login test done");
+
          driver.navigate().to("https://www.caax.co.uk/demo/sxclient/setting_personalinfo.aspx");
          Reporter.log("Login Successfull");
 

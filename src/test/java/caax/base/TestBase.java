@@ -1,6 +1,12 @@
 package caax.base;
 
 import caax.utilities.ExcelReader;
+import caax.utilities.ExtentManager;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.markuputils.ExtentColor;
+import com.aventstack.extentreports.markuputils.Markup;
+import com.aventstack.extentreports.markuputils.MarkupHelper;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +22,7 @@ import org.testng.annotations.BeforeSuite;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +35,11 @@ public class TestBase {
     public static Logger log= LogManager.getLogger();
     public static ExcelReader reader=new ExcelReader(System.getProperty("user.dir")+"\\src\\main\\resources\\excel\\data.xlsx");
     public static WebDriverWait wait;
+    static Date d = new Date();
+    static String fileName = "Extent_" + d.toString().replace(":", "_").replace(" ", "_") + ".html";
+    public static ExtentReports extent = ExtentManager.createInstance(System.getProperty("user.dir")+"\\reports\\"+fileName);
+    public static ThreadLocal<ExtentTest> testReport = new ThreadLocal<ExtentTest>();
+
 
 
     @BeforeSuite
@@ -89,6 +101,20 @@ public class TestBase {
         }catch (NoSuchElementException e){
             return false;
         }
+    }
+
+    public void type(String locatore,String value)
+    {
+        driver.findElement(By.xpath(OR.getProperty(locatore))).sendKeys(value);
+        Markup m= MarkupHelper.createLabel("Type in:"+locatore, ExtentColor.BLUE);
+        testReport.get().info(m);
+    }
+
+    public void click(String locatore){
+
+        driver.findElement(By.xpath(OR.getProperty(locatore))).click();
+        Markup m= MarkupHelper.createLabel("Click on:"+locatore, ExtentColor.BLUE);
+        testReport.get().info(m);
     }
 
 
