@@ -11,7 +11,7 @@ public class LoginTest extends TestBase {
     @Test
     public void login(){
 
-         System.setProperty("org.uncommons.reportng.escape-output","false");
+
          log.debug("Inside login test");
          driver.findElement(By.xpath(OR.getProperty("userId"))).sendKeys("pradip.caax@gmail.com");
 
@@ -22,7 +22,8 @@ public class LoginTest extends TestBase {
          log.debug("login test done");
          driver.navigate().to("https://www.caax.co.uk/demo/sxclient/setting_personalinfo.aspx");
          Reporter.log("Login Successfull");
-         Reporter.log("<a target=\"_blank\" href=\"E:\\shiv.jpg\">Screenshot</a>");
+
+         Assert.fail("Uncommon failed");
 
     }
 

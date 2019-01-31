@@ -3,8 +3,9 @@
 <suite name="Caax Automation DataDriven">
 
     <listeners>
-     <listener class-name="org.uncommons.reportng.HTMLReporter"/>
-    <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+        <listener class-name="org.uncommons.reportng.HTMLReporter"/>
+        <listener class-name="org.uncommons.reportng.JUnitXMLReporter"/>
+        <listener class-name="caax.utilities.ExtentTestNGITestListener"/>
     </listeners>
 
     <test name="Caax">
